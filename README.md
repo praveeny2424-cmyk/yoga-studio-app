@@ -37,7 +37,7 @@ Static output is in `dist/yoga-school/browser` (use that folder for static hosti
 5. Save and deploy. Cloudflare runs the build and gives you a URL like `https://yoga-studio-app.pages.dev` (name may vary).
 6. After each push to `main`, Cloudflare rebuilds automatically.
 
-`public/_redirects` sends all routes to `index.html` so client-side Angular routing works when you open `/contact` or refresh a deep link.
+**Angular routes on Cloudflare:** Do not add a Netlify-style `public/_redirects` file (`/* /index.html 200`). Cloudflare rejects that rule as an infinite loop. Pages serves `index.html` for unknown paths automatically when the build output has **no** top-level `404.html` (default `ng build` is fine).
 
 ## What is wired
 
