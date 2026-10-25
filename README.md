@@ -21,6 +21,24 @@ npm run build
 
 Static output is in `dist/yoga-school/browser` (use that folder for static hosting).
 
+## Deploy on Cloudflare Pages (free)
+
+1. Open [Cloudflare Dashboard](https://dash.cloudflare.com) → **Workers & Pages** → **Create** → **Pages** → **Connect to Git**.
+2. Authorize GitHub if prompted, then choose the **`yoga-studio-app`** repository.
+3. **Build settings** (repo root is the Angular app — no monorepo subfolder):
+
+   | Setting | Value |
+   |---------|--------|
+   | Production branch | `main` |
+   | Build command | `npm ci && npm run build` |
+   | Build output directory | `dist/yoga-school/browser` |
+
+4. **Environment variables** → add **`NODE_VERSION`** = **`20`** (Angular 19 needs a recent Node).
+5. Save and deploy. Cloudflare runs the build and gives you a URL like `https://yoga-studio-app.pages.dev` (name may vary).
+6. After each push to `main`, Cloudflare rebuilds automatically.
+
+`public/_redirects` sends all routes to `index.html` so client-side Angular routing works when you open `/contact` or refresh a deep link.
+
 ## What is wired
 
 - Catalog pages read one data file, so dates and prices change without a redesign.
