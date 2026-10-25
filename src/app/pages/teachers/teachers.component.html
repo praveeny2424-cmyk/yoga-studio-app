@@ -1,0 +1,21 @@
+<section class="wrap page-head">
+  <p class="kicker">Faculty</p>
+  <h1>Teachers</h1>
+  <p class="lead">Sample profiles. Swap in your faculty, photos, and years of practice.</p>
+</section>
+<section class="section wrap grid cards-2">
+  @for (teacher of teachers; track teacher.name) {
+    <article class="card">
+      <div class="person">
+        <div class="avatar">{{ teacher.name.slice(0, 1) }}</div>
+        <div>
+          <h2>{{ teacher.name }}</h2>
+          <p class="meta">{{ teacher.years }}</p>
+        </div>
+      </div>
+      <p><strong>Education.</strong> {{ teacher.education }}</p>
+      <p><strong>Teaches.</strong> {{ teacher.expertise }}</p>
+      <p>{{ teacher.bio }}</p>
+    </article>
+  }
+</section>

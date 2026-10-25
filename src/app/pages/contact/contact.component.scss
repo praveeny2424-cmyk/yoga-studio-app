@@ -1,0 +1,21 @@
+.contact-details {
+  margin-top: 1rem;
+}
+
+.contact-lines {
+  list-style: none;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.contact-lines a {
+  text-decoration: none;
+  color: var(--forest-2);
+  font-weight: 500;
+}
+
+.contact-lines a:hover {
+  text-decoration: underline;
+}

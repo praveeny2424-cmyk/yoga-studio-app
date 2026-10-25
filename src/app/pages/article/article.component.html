@@ -1,0 +1,15 @@
+@if (article(); as post) {
+  <article class="wrap page-head">
+    <p class="meta">{{ post.date }}</p>
+    <h1>{{ post.title }}</h1>
+    @for (paragraph of post.paragraphs; track paragraph) {
+      <p class="lead">{{ paragraph }}</p>
+    }
+    <a routerLink="/blog">All notes</a>
+  </article>
+} @else {
+  <section class="wrap page-head">
+    <h1>That note is not here.</h1>
+    <a routerLink="/blog">Back to the journal</a>
+  </section>
+}

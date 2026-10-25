@@ -1,0 +1,37 @@
+<section class="wrap page-head">
+  <p class="kicker">Partners</p>
+  <h1>Share the school, earn a sample 10%</h1>
+  <p class="lead">
+    A referral code on the booking form ties a student to a partner. Payouts stay manual until you add a real ledger.
+  </p>
+</section>
+<section class="section wrap split">
+  <div class="grid">
+    <article class="card">
+      <h3>1. Apply</h3>
+      <p>Leave your name. The school replies with a code.</p>
+    </article>
+    <article class="card">
+      <h3>2. Share</h3>
+      <p>Students type that code on the booking form.</p>
+    </article>
+    <article class="card">
+      <h3>3. Confirm</h3>
+      <p>Commission is counted after the student arrives and pays, not when they only enquire.</p>
+    </article>
+  </div>
+  @if (sent()) {
+    <div class="note">
+      <h2>Application saved on this browser.</h2>
+      <p>Reply to the applicant from your own inbox. This form does not send mail yet.</p>
+    </div>
+  } @else {
+    <form class="form" [formGroup]="form" (ngSubmit)="submit()">
+      <label>Name <input formControlName="name" /></label>
+      <label>Email <input type="email" formControlName="email" /></label>
+      <label>Phone <input formControlName="phone" /></label>
+      <label>Where you will share the school <textarea rows="4" formControlName="message"></textarea></label>
+      <button type="submit">Apply</button>
+    </form>
+  }
+</section>

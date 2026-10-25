@@ -1,0 +1,14 @@
+<section class="wrap page-head">
+  <p class="kicker">Journal</p>
+  <h1>Notes for future students</h1>
+  <p class="lead">Three starter essays. Add your own in the catalog file.</p>
+</section>
+<section class="section wrap grid cards-3">
+  @for (article of articles; track article.slug) {
+    <a class="card" [routerLink]="['/blog', article.slug]">
+      <p class="meta">{{ article.date }}</p>
+      <h3>{{ article.title }}</h3>
+      <p>{{ article.excerpt }}</p>
+    </a>
+  }
+</section>

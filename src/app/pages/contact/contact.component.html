@@ -1,0 +1,41 @@
+<section class="wrap page-head">
+  <p class="kicker">Contact</p>
+  <h1>Write to the school</h1>
+  <div class="contact-details">
+    <p class="lead">{{ school.address }}</p>
+    <ul class="contact-lines">
+      <li>
+        <a [href]="'mailto:' + school.email">{{ school.email }}</a>
+      </li>
+      <li>
+        <a [href]="'tel:' + school.phoneTel">{{ school.phoneDisplay }}</a>
+      </li>
+    </ul>
+    <app-social-links />
+  </div>
+</section>
+<section class="section wrap split">
+  @if (sent()) {
+    <div class="note">
+      <h2>Message saved on this browser.</h2>
+      <p>Nothing was emailed. Connect a form service when you want these notes to reach an inbox.</p>
+    </div>
+  } @else {
+    <form class="form" [formGroup]="form" (ngSubmit)="submit()">
+      <label>Name <input formControlName="name" /></label>
+      <label>Email <input type="email" formControlName="email" /></label>
+      <label>Phone <input formControlName="phone" /></label>
+      <label>Country <input formControlName="country" /></label>
+      <label>Message <textarea rows="5" formControlName="message"></textarea></label>
+      @if (form.invalid && form.touched) {
+        <p class="error">Add your name, a valid email, a phone number, and a message.</p>
+      }
+      <button type="submit">Send</button>
+    </form>
+  }
+  <aside class="card">
+    <h2>Before you travel</h2>
+    <p>Fly into Dehradun for a short transfer, or ask about a paid pickup from Delhi when you enquire.</p>
+    <p>Reach Ajay on email, phone, or WhatsApp if you have questions about visas, rooms, or dates.</p>
+  </aside>
+</section>

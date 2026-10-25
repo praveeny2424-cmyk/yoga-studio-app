@@ -1,0 +1,102 @@
+<section class="wrap hero">
+  <div>
+    <p class="kicker">{{ school.city }}</p>
+    <h1>A quiet school for learning to teach yoga.</h1>
+    <p class="lead">
+      Residential teacher trainings, short retreats, and self-paced online study.
+      This is a working starter you can rename, reprice, and publish.
+    </p>
+    <div class="actions">
+      <a class="btn" routerLink="/courses">See courses</a>
+      <a class="btn secondary" routerLink="/booking">Request a place</a>
+    </div>
+  </div>
+  <div class="hero-card">
+    <p class="kicker">On campus</p>
+    <h2>Practice at dawn. Study in the afternoon. Sleep by the river path.</h2>
+    <p>Sample location: {{ school.address }}.</p>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="stats">
+    <div class="stat"><strong>9</strong><span>In-person trainings and workshops</span></div>
+    <div class="stat"><strong>3</strong><span>Retreat lengths</span></div>
+    <div class="stat"><strong>2</strong><span>Online courses in the catalog</span></div>
+    <div class="stat"><strong>6</strong><span>Sample teacher profiles</span></div>
+  </div>
+</section>
+
+<section class="section wrap">
+  <p class="kicker">Trainings</p>
+  <h2>Choose a length and a focus.</h2>
+  <div class="grid cards-3">
+    @for (course of courses; track course.slug) {
+      <a class="card" [routerLink]="['/courses', course.slug]">
+        <p class="meta">{{ course.days }} days · {{ course.level }}</p>
+        <h3>{{ course.shortTitle }}</h3>
+        <p>{{ course.summary }}</p>
+        <p class="price">From {{ course.feeFrom | number:'1.0-0' }} USD</p>
+      </a>
+    }
+  </div>
+</section>
+
+<section class="section band">
+  <div class="wrap split">
+    <div>
+      <p class="kicker">The stay</p>
+      <h2>What a month includes</h2>
+      <p>Tuition, a manual, a daily timetable, and a room rate that already includes three vegetarian meals.</p>
+      <p>Exams are a written paper, a practical teaching session, and attendance. The certificate comes from the school.</p>
+      <a class="btn" routerLink="/about">Read the school story</a>
+    </div>
+    <ul class="timeline">
+      <li><span>06:00</span><strong>Hatha</strong></li>
+      <li><span>11:15</span><strong>Anatomy lab</strong></li>
+      <li><span>14:45</span><strong>Philosophy</strong></li>
+      <li><span>16:00</span><strong>Vinyasa</strong></li>
+      <li><span>17:45</span><strong>Meditation</strong></li>
+    </ul>
+  </div>
+</section>
+
+<section class="section wrap">
+  <p class="kicker">Teachers</p>
+  <h2>People who hold the classes</h2>
+  <div class="grid cards-2">
+    @for (teacher of teachers; track teacher.name) {
+      <article class="card person">
+        <div class="avatar">{{ teacher.name.slice(0, 1) }}</div>
+        <div>
+          <h3>{{ teacher.name }}</h3>
+          <p class="meta">{{ teacher.expertise }} · {{ teacher.years }}</p>
+        </div>
+      </article>
+    }
+  </div>
+  <p><a routerLink="/teachers">All teachers</a></p>
+</section>
+
+<section class="section wrap">
+  <p class="kicker">Notes from students</p>
+  <h2>Sample voices, ready to replace</h2>
+  <div class="grid cards-3">
+    @for (review of reviews; track review.name) {
+      <blockquote class="card">
+        <p class="quote">“{{ review.quote }}”</p>
+        <p class="meta">{{ review.name }} · {{ review.source }}</p>
+      </blockquote>
+    }
+  </div>
+</section>
+
+<section class="section wrap">
+  <h2>Questions</h2>
+  @for (item of faqs; track item.question) {
+    <details>
+      <summary>{{ item.question }}</summary>
+      <p>{{ item.answer }}</p>
+    </details>
+  }
+</section>

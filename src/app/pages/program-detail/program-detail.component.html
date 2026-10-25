@@ -1,0 +1,114 @@
+@if (program(); as item) {
+  <section class="wrap page-head">
+    <p class="kicker">{{ item.certification }}</p>
+    <h1>{{ item.title }}</h1>
+    <p class="lead">{{ item.summary }}</p>
+    <p class="meta">{{ item.level }} @if (item.days) { · {{ item.days }} days }</p>
+    <div class="actions">
+      <a class="btn" [routerLink]="['/booking']" [queryParams]="{ program: item.slug }">Request this date</a>
+      <a class="btn secondary" routerLink="/contact">Ask first</a>
+    </div>
+  </section>
+
+  <section class="section wrap split">
+    <div>
+      <h2>Overview</h2>
+      @for (paragraph of item.overview; track paragraph) {
+        <p>{{ paragraph }}</p>
+      }
+    </div>
+    <div>
+      <h2>Included</h2>
+      <ul>
+        @for (inclusion of item.inclusions; track inclusion) {
+          <li>{{ inclusion }}</li>
+        }
+      </ul>
+    </div>
+  </section>
+
+  @if (item.eligibility.length) {
+    <section class="section wrap">
+      <h2>Who it is for</h2>
+      <ul>
+        @for (rule of item.eligibility; track rule) {
+          <li>{{ rule }}</li>
+        }
+      </ul>
+    </section>
+  }
+
+  @if (item.curriculum.length) {
+    <section class="section wrap">
+      <h2>Curriculum</h2>
+      <div class="grid cards-3">
+        @for (group of item.curriculum; track group.title) {
+          <article class="card">
+            <h3>{{ group.title }}</h3>
+            <ul>
+              @for (point of group.items; track point) {
+                <li>{{ point }}</li>
+              }
+            </ul>
+          </article>
+        }
+      </div>
+    </section>
+  }
+
+  @if (item.schedule.length) {
+    <section class="section band">
+      <div class="wrap">
+        <h2>A sample day</h2>
+        <ul class="timeline">
+          @for (block of item.schedule; track block.time) {
+            <li><span>{{ block.time }}</span><strong>{{ block.title }}</strong></li>
+          }
+        </ul>
+        <p class="meta">The order can change with the group and the weather.</p>
+      </div>
+    </section>
+  }
+
+  <section class="section wrap">
+    <h2>Fees</h2>
+    <p class="meta">Shown price is the sample season rate. The crossed price is the list rate.</p>
+    <div class="grid cards-2">
+      @for (room of item.rooms; track room.id) {
+        <article class="card fee">
+          <div>
+            <h3>{{ room.name }}</h3>
+          </div>
+          <p class="price"><span class="was">{{ room.listPrice | number:'1.0-0' }}</span>{{ room.price | number:'1.0-0' }} USD</p>
+        </article>
+      }
+    </div>
+  </section>
+
+  <section class="section wrap">
+    <h2>Dates</h2>
+    <div class="grid cards-2">
+      @for (cohort of item.cohorts; track cohort.id) {
+        <article class="card fee">
+          <strong>{{ cohort.label }}</strong>
+          <span class="seat">{{ cohort.seats }} seats listed</span>
+        </article>
+      }
+    </div>
+  </section>
+
+  <section class="section wrap">
+    <h2>Questions</h2>
+    @for (itemFaq of item.faqs; track itemFaq.question) {
+      <details>
+        <summary>{{ itemFaq.question }}</summary>
+        <p>{{ itemFaq.answer }}</p>
+      </details>
+    }
+  </section>
+} @else {
+  <section class="wrap page-head">
+    <h1>That course is not in the catalog.</h1>
+    <a class="btn" routerLink="/courses">Back to courses</a>
+  </section>
+}

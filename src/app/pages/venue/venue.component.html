@@ -1,0 +1,24 @@
+<section class="wrap page-head">
+  <p class="kicker">Place</p>
+  <h1>Course venue and retreat rooms</h1>
+  <p class="lead">
+    Colored panels stand in for photographs. Drop your own images into this page when you have permission to use them.
+  </p>
+</section>
+<section class="section wrap">
+  <div class="tiles">
+    @for (room of rooms; track room.name) {
+      <div class="tile {{ room.tone }}">{{ room.name }}</div>
+    }
+  </div>
+  <div class="split" style="margin-top: 2rem">
+    <article>
+      <h2>Training house</h2>
+      <p>Halls for practice, a dining room, and rooms with balconies. The sample story includes an elevator and a quiet lane.</p>
+    </article>
+    <article>
+      <h2>Retreat house</h2>
+      <p>A smaller set of rooms used for the 3, 5, and 7 day stays. Keep this copy aligned with the beds you actually have.</p>
+    </article>
+  </div>
+</section>

@@ -1,0 +1,82 @@
+<section class="wrap page-head">
+  <p class="kicker">Booking</p>
+  <h1>Request a place</h1>
+  <p class="lead">Pick a course, a room, and a date. The school confirms the seat before any payment link is sent.</p>
+</section>
+
+<section class="section wrap" style="max-width: 760px">
+  @if (sent()) {
+    <div class="note">
+      <h2>Request saved on this browser.</h2>
+      <p>
+        {{ form.controls.name.value }} · {{ program()?.title }} · {{ room()?.name }} ·
+        {{ total() | number:'1.0-0' }} USD
+      </p>
+      <p>No payment was taken. When you connect Razorpay or PayPal, send the link from your inbox after you check the date.</p>
+      <a class="btn" routerLink="/">Back home</a>
+    </div>
+  } @else {
+    <div class="steps">
+      <span [class.on]="step() === 1">1 Course</span>
+      <span [class.on]="step() === 2">2 You</span>
+      <span [class.on]="step() === 3">3 Confirm</span>
+    </div>
+    <form class="form" [formGroup]="form" (ngSubmit)="step() === 3 ? submit() : next()">
+      @if (step() === 1) {
+        <label>
+          Course
+          <select formControlName="programSlug">
+            <option value="">Choose</option>
+            @for (item of programs; track item.slug) {
+              <option [value]="item.slug">{{ item.shortTitle }}</option>
+            }
+          </select>
+        </label>
+        <label>
+          Room or fee
+          <select formControlName="roomId">
+            <option value="">Choose</option>
+            @for (roomOption of program()?.rooms ?? []; track roomOption.id) {
+              <option [value]="roomOption.id">{{ roomOption.name }} · {{ roomOption.price | number:'1.0-0' }} USD</option>
+            }
+          </select>
+        </label>
+        <label>
+          Date
+          <select formControlName="cohortId">
+            <option value="">Choose</option>
+            @for (date of program()?.cohorts ?? []; track date.id) {
+              <option [value]="date.id">{{ date.label }} · {{ date.seats }} seats listed</option>
+            }
+          </select>
+        </label>
+      }
+      @if (step() === 2) {
+        <label>Name <input formControlName="name" /></label>
+        <label>Email <input type="email" formControlName="email" /></label>
+        <label>Phone <input formControlName="phone" /></label>
+        <label>Country <input formControlName="country" /></label>
+        <label>Reference code <input formControlName="referenceCode" placeholder="Optional affiliate code" /></label>
+        <label>Note <textarea rows="4" formControlName="message" placeholder="Diet, arrival airport, second guest"></textarea></label>
+      }
+      @if (step() === 3) {
+        <article class="card">
+          <h2>{{ program()?.title }}</h2>
+          <p>{{ cohort()?.label }}</p>
+          <p>{{ room()?.name }}</p>
+          <p class="price">{{ total() | number:'1.0-0' }} USD</p>
+          <p class="meta">Card processors often add a fee. Add that only on the payment link, not in this form.</p>
+        </article>
+      }
+      @if (form.invalid && form.touched && step() < 3) {
+        <p class="error">Complete the fields on this step before continuing.</p>
+      }
+      <div class="actions">
+        @if (step() > 1) {
+          <button type="button" class="secondary" (click)="back()">Back</button>
+        }
+        <button type="submit">{{ step() === 3 ? 'Save request' : 'Continue' }}</button>
+      </div>
+    </form>
+  }
+</section>

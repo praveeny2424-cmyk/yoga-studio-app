@@ -1,0 +1,62 @@
+<div class="offer-bar">Sample season rate is already applied on the fee cards. Edit the numbers in the catalog.</div>
+<header class="site-header">
+  <a routerLink="/" class="logo" aria-label="Ajay's Ashtanga Vinyasa School home">
+    <span class="mark">A</span>
+    <span>
+      <strong>Ajay's</strong>
+      <small>Ashtanga Vinyasa School</small>
+    </span>
+  </a>
+  <button class="menu-btn" type="button" (click)="menuOpen.set(!menuOpen())" [attr.aria-expanded]="menuOpen()">
+    Menu
+  </button>
+  <nav [class.open]="menuOpen()">
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+    <div class="drop">
+      <a routerLink="/courses" routerLinkActive="active">Courses</a>
+      <div class="drop-panel">
+        @for (course of courses; track course.slug) {
+          <a [routerLink]="['/courses', course.slug]">{{ course.shortTitle }}</a>
+        }
+      </div>
+    </div>
+    <a routerLink="/online" routerLinkActive="active">Online</a>
+    <div class="drop">
+      <a routerLink="/retreats" routerLinkActive="active">Retreats</a>
+      <div class="drop-panel">
+        @for (retreat of retreats; track retreat.slug) {
+          <a [routerLink]="['/retreats', retreat.slug]">{{ retreat.shortTitle }}</a>
+        }
+      </div>
+    </div>
+    <a routerLink="/teachers" routerLinkActive="active">Teachers</a>
+    <a routerLink="/venue" routerLinkActive="active">Venue</a>
+    <a routerLink="/blog" routerLinkActive="active">Journal</a>
+    <a routerLink="/contact" routerLinkActive="active">Contact</a>
+  </nav>
+  <a class="btn btn-small" routerLink="/booking">Book</a>
+</header>
+
+<main>
+  <router-outlet />
+</main>
+
+<footer class="site-footer">
+  <div>
+    <strong>{{ school.name }}</strong>
+    <p>{{ school.address }}</p>
+    <p>{{ school.email }}</p>
+    <p>{{ school.phoneDisplay }}</p>
+    <app-social-links />
+  </div>
+  <div class="footer-links">
+    <a routerLink="/about">About</a>
+    <a routerLink="/courses">Courses</a>
+    <a routerLink="/online">Online</a>
+    <a routerLink="/retreats">Retreats</a>
+    <a routerLink="/affiliate">Affiliate</a>
+    <a routerLink="/contact">Contact</a>
+  </div>
+  <p class="fine">Starter site for your own school. © {{ year }}. Sample teachers, reviews, and fees are fictional.</p>
+</footer>
+<a class="ask" routerLink="/contact">Ask a question</a>
